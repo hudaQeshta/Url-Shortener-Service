@@ -8,8 +8,7 @@ import shortid from "shortid";
 // @access   Public
 const shortUrl = asyncHandler(async (req, res) => {
   const { givenUrl } = req.body;
-  const baseUrl = "http://localhost:5050";
-
+  const baseUrl = process.env.BASE_URL;
   if (!validUrl.isUri(baseUrl)) {
     res.status(401);
     throw new Error("Invalid base Url");
@@ -30,7 +29,7 @@ const shortUrl = asyncHandler(async (req, res) => {
           shortUrl,
         });
         await url.save();
-        res.json(url);
+        res.json(`${baseUrl}/${url.shortUrl}`);
       }
     } catch (error) {
       res.status(500);
@@ -54,7 +53,7 @@ const shortUrlRedirect = asyncHandler(async (req, res) => {
       return res.redirect(url.givenUrl);
     } else {
       res.status(404);
-      throw new Error("Not Found");
+      throw new Error("Url Not Found");
     }
   } catch (error) {
     res.status(500);
