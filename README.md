@@ -1,4 +1,4 @@
-![alt text](https://ibb.co/Fq58s1g)
+![alt text](https://i.ibb.co/zHXP8gG/Screenshot-2021-01-23-020308.png)
 
 # Url-Shortener-Service
 Full-Stack url shortener service
