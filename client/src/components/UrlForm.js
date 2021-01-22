@@ -112,7 +112,7 @@ const UrlForm = ({ history }) => {
               <ul className="style-none">
                 {links &&
                   links.map((link) => (
-                    <li className="nav-item m-2">
+                    <li className="nav-item m-2" key={link._id}>
                       <a href={link.givenUrl}>{link.givenUrl}</a>
                     </li>
                   ))}
