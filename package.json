@@ -6,15 +6,20 @@
   "type": "module",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix client"
   },
   "author": "Huda Qeshta",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.12",
+    "react-router-dom": "^5.2.0",
     "shortid": "^2.2.16",
     "valid-url": "^1.0.9"
   },

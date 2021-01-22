@@ -3,19 +3,18 @@ import asyncHandler from "express-async-handler";
 import validUrl from "valid-url";
 import shortid from "shortid";
 
-// @route    POST api/url
+// @route    POST api/urls
 // @desc     Create a short url
-// @access   Public
+// @access   Private
 const shortUrl = asyncHandler(async (req, res) => {
   const { givenUrl } = req.body;
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = process.env.BASE_URL || "http://localhost:5050/api/urls";
   if (!validUrl.isUri(baseUrl)) {
     res.status(401);
     throw new Error("Invalid base Url");
   }
 
   const urlCode = shortid.generate();
-
   if (validUrl.isUri(givenUrl)) {
     try {
       let url = await Url.findOne({ givenUrl });
@@ -28,8 +27,11 @@ const shortUrl = asyncHandler(async (req, res) => {
           givenUrl,
           shortUrl,
         });
-        await url.save();
-        res.json(`${baseUrl}/${url.shortUrl}`);
+        const newUrl = await url.save();
+        res.json({
+          givenUrl: newUrl.givenUrl,
+          shortUrl: newUrl.shortUrl,
+        });
       }
     } catch (error) {
       res.status(500);
@@ -41,16 +43,17 @@ const shortUrl = asyncHandler(async (req, res) => {
   }
 });
 
-// @route    GET api/url/:shortUrl
+// @route    GET api/urls/:shortUrl
 // @desc     Redirect to a long/given url
-// @access   Public
+// @access   Private
 const shortUrlRedirect = asyncHandler(async (req, res) => {
   const shortUrl = req.params.shortUrl;
   try {
     const url = await Url.findOne({ shortUrl });
-
     if (url) {
-      return res.redirect(url.givenUrl);
+      return res.json(url.givenUrl);
+
+      //return res.redirect(givenUrl);
     } else {
       res.status(404);
       throw new Error("Url Not Found");
@@ -61,9 +64,9 @@ const shortUrlRedirect = asyncHandler(async (req, res) => {
   }
 });
 
-// @route    GET api/url/links
+// @route    GET api/urls/links
 // @desc     Lists All Links in DB
-// @access   Public
+// @access   Private
 const allLinks = asyncHandler(async (req, res) => {
   try {
     const urls = await Url.find({});
