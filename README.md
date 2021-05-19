@@ -5,7 +5,7 @@ Full-Stack url shortener service
 ## Installation:
 
 1. Clone this repo.
-2. cd `Url-Shortener-Service`
+2. `cd Url-Shortener-Service`
 3. Make sure you have node package manager installed.
 4. Run `npm install`
 5. Create a `.env` file in the root and fill in the ```PORT, MONGO_URI, BASE_URL, JWT_SECRET```
@@ -13,9 +13,9 @@ Full-Stack url shortener service
 
 **The server will run on http://localhost:5000/ if the port isn't specified in .env file**
 
-7. Open a new terminal, and cd `client`
+7. Open a new terminal, and `cd client`
 8. Run `npm install`
-9. cd `..`
+9. `cd ..`
 10. Run `npm run client`
 
 **The ui will run on http://localhost:3000/**
