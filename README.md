@@ -11,7 +11,7 @@ Full-Stack url shortener service
 5. Create a `.env` file in the root and fill in the ```PORT, MONGO_URI, BASE_URL, JWT_SECRET```
 6. Run `npm run server`
 
-**The server will run on http://localhost:5000/ if the port isn't specified**
+**The server will run on http://localhost:5000/ if the port isn't specified in .env file**
 
 7. Open a new terminal, and cd `client`
 8. Run `npm install`
