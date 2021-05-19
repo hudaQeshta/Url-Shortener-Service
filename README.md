@@ -20,7 +20,7 @@ Full-Stack url shortener service
 
 **The ui will run on http://localhost:3000/**
 
-**Note: Changing the server port in the .env will require you to change it in the setupProxy.js file in client folder**
+**Note: Changing the server port in the .env will require you to change it in the setupProxy.js file in client folder as well**
 
 ## Conceptual Questions: 
 
