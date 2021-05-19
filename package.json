@@ -1,7 +1,7 @@
 {
   "name": "link-shortener-service",
   "version": "1.0.0",
-  "description": "Url Shortener service",
+  "description": "Url Shortener Service",
   "main": "server.js",
   "type": "module",
   "scripts": {
