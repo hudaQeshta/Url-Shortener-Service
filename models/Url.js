@@ -2,8 +2,19 @@ import mongoose from "mongoose";
 
 const UrlSchema = new mongoose.Schema(
   {
-    givenUrl: String,
-    shortUrl: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    givenUrl: {
+      type: String,
+      required: true
+    },
+    shortUrl: {
+      type: String,
+      required: true,
+    }
   },
   { timestamps: true }
 );
