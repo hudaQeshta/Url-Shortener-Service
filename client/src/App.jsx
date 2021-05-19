@@ -1,9 +1,10 @@
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import UrlForm from "./components/UrlForm";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Route path="/" component={UrlForm} exact />

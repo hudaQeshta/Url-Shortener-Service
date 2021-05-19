@@ -1,93 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getLink, getLinks, shorteningLink } from "../actions/urlActions";
-import { logout } from "../actions/userActions";
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getLink, getLinks, shorteningLink } from '../actions/urlActions'
+import { logout } from '../actions/userActions'
 
 const UrlForm = ({ history }) => {
-  const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  const urlShortening = useSelector((state) => state.urlShortening);
-  const { url, error } = urlShortening;
-  const urlList = useSelector((state) => state.urlList);
-  const { links, error: linksError } = urlList;
-  const urlRedirect = useSelector((state) => state.urlRedirect);
-  const { redirect } = urlRedirect;
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  const urlShortening = useSelector((state) => state.urlShortening)
+  const { url, error } = urlShortening
+  const urlList = useSelector((state) => state.urlList)
+  const { links, error: linksError } = urlList
+  const urlRedirect = useSelector((state) => state.urlRedirect)
+  const { redirect } = urlRedirect
 
-  const [longUrl, setLongUrl] = useState("");
+  const [longUrl, setLongUrl] = useState('')
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login')
     } else {
       if (url && url.givenUrl) {
-        setLongUrl(url.givenUrl);
+        setLongUrl(url.givenUrl)
       } else {
-        setLongUrl("");
+        setLongUrl('')
       }
-      dispatch(getLinks());
+      dispatch(getLinks())
       if (redirect) {
-        window.location.href = redirect;
+        window.location.href = redirect
       }
     }
-  }, [dispatch, userInfo, url, history, redirect]);
+  }, [dispatch, userInfo, url, history, redirect])
 
   const onSubmitHandler = (e) => {
-    e.preventDefault();
-    console.log(longUrl);
-    dispatch(shorteningLink(longUrl));
-  };
+    e.preventDefault()
+    console.log(longUrl)
+    dispatch(shorteningLink(longUrl))
+  }
   const handleLogout = () => {
-    dispatch(logout());
-    history.push("/login");
-  };
+    dispatch(logout())
+    history.push('/login')
+  }
   return (
     <>
       <button
-        className="btn btn-light mx-2 my-3"
+        className='btn btn-light mx-2 my-3'
         onClick={() => handleLogout()}
       >
         Log out
       </button>
-      <div className="row d-flex justify-content-center align-items-center">
-        <div className="col-md-5 mt-5 col-sm-8">
+      <div className='row d-flex justify-content-center align-items-center'>
+        <div className='col-md-5 mt-5 col-sm-8'>
           {error && (
-            <div className="alert alert-danger" role="alert">
+            <div className='alert alert-danger' role='alert'>
               {error}
             </div>
           )}
           <form onSubmit={(e) => onSubmitHandler(e)}>
-            <div className="mb-3">
-              <label for="url" className="form-label">
+            <div className='mb-3'>
+              <label htmlFor='url' className='form-label'>
                 URL
               </label>
               <input
-                type="text"
-                className="form-control"
-                id="url"
-                name="url"
+                type='text'
+                className='form-control'
+                id='url'
+                name='url'
                 value={longUrl}
                 onChange={(e) => setLongUrl(e.target.value)}
-                aria-describedby="urlHelp"
+                aria-describedby='urlHelp'
               />
-              <div id="urlHelp" className="form-text">
-                Please, Paste the URL you want to shoten in the empty field
+              <div id='urlHelp' className='form-text'>
+                Please, Paste the URL you want to shorten in the empty field
                 above.
               </div>
             </div>
-            <div className="text-center">
-              <button type="submit" className="btn btn-dark">
+            <div className='text-center'>
+              <button type='submit' className='btn btn-dark'>
                 Submit
               </button>
             </div>
           </form>
-          <div className="my-3">
+          <div className='my-3'>
             {url && url.shortUrl && (
               <>
-                <p className="text-white">
+                <p className='text-white'>
                   Please click on the button below to redirect to your link
                 </p>
                 <button
-                  className="btn btn-outline-info"
+                  className='btn btn-outline-info'
                   onClick={() => dispatch(getLink(url.shortUrl))}
                 >
                   {url.shortUrl}
@@ -97,23 +97,34 @@ const UrlForm = ({ history }) => {
           </div>
         </div>
       </div>
-      <div className="row d-flex justify-content-center align-items-center">
-        <div className="col-md-5 mt-5 col-sm-8">
-          <div className="card">
-            <div className="card-header text-center">
+      <div className='row d-flex justify-content-center align-items-center'>
+        <div className='col-md-5 mt-5 col-sm-8'>
+          <div className='card'>
+            <div className='card-header text-center'>
               <h2>All Links !</h2>
             </div>
             {linksError && (
-              <div className="alert alert-danger" role="alert">
+              <div className='alert alert-danger' role='alert'>
                 {linksError}
               </div>
             )}
-            <div className="card-body">
-              <ul className="style-none">
+            <div className='card-body'>
+              <ul className='style-none'>
                 {links &&
                   links.map((link) => (
-                    <li className="nav-item m-2" key={link._id}>
-                      <a href={link.givenUrl}>{link.givenUrl}</a>
+                    <li className='nav-item mb-4 border p-2' key={link._id}>
+                      <a href={link.givenUrl} target='_blank' rel='noreferrer'>
+                        {link.givenUrl}
+                      </a>
+                      <p className='my-3'>
+                        Short Url :
+                        <button
+                          className='mx-2 btn btn-outline-info'
+                          onClick={() => dispatch(getLink(link.shortUrl))}
+                        >
+                          {link.shortUrl}
+                        </button>
+                      </p>
                     </li>
                   ))}
               </ul>
@@ -122,7 +133,7 @@ const UrlForm = ({ history }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default UrlForm;
+export default UrlForm

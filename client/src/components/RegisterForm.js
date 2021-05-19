@@ -9,8 +9,8 @@ const RegisterForm = ({ history }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, error } = userLogin;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, error } = userRegister;
 
   useEffect(() => {
     if (userInfo) {
